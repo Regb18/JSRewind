@@ -75,24 +75,56 @@
             <div class="col-12 col-lg-8">
                 <pre class="line-numbers">
                     <code class="language-js">
-                        function displayMessage() {
-                            let msg = document.getElementById('message').value;
+                        // Separation of Concerns
+
+                        // element IDs
+                        // userString
+                        
+                        
+                        //entry point AKA controller
+                        function getValues() {
+                            let inputString = document.getElementById('userString').value;
+                        
+                            let reversedString = reverseAString(inputString);
+                        
+                            displayString(reversedString);
+                        
+                        }
+                        
+                        // logic function
+                        // reverse a string
+                        function reverseAString(userString) {
+                            let revString = '';
                             
-                            Swal.fire(
-                                {
-                                    backdrop: false,
-                                    title: 'Rewind',
-                                    text: msg
-                                }
-                            );
+                            // reverse the string
+                            for(let i = userString.length - 1; i >= 0; i--) {
+                                revString += userString[i];
+                            }
+                            return revString;
+                        }
+                        
+                        // view function
+                        function displayString(revString) {
+                            document.getElementById('results').textContent = revString;
+                            document.getElementById('alert').classList.remove('invisible');
                         }
                     </code>
                 </pre>
             </div>
             <div class="col-12 col-lg-4">
-                <p>The code is structured in one function</p>
-                <h5><code>displayMessage()</code></h5>
-                <p>This function displays the message in a Sweet Alert</p>
+                <p>The code is structured in three functions: getValues(), reverseAString(), and displayString().</p>
+                <h5><code>getValues()</code></h5>
+                <p>
+                    This function serves two purposes as our entry point and our controller function. We use this function to get the user input from the HTML and convert it into a value that can be used in javascript. Then we call the reversedString() function using our input as a parameter and that will return a reversed string for us to pass to our display function, and put it on the page.
+                </p>
+                <h5><code>reverseAString()</code></h5>
+                <p>
+                    This function takes our user input as a parameter and returns the same string backwards. First, we make an empty string called revString, and then use a for loop to move through our string one letter at a time and add each one to our revString variable. This is possible because strings are read by javascript as arrays with each letter being at an index. Therefore, we start our loop at the last letter of the array and add the letters until reaching the first letter, and then exit the loop and return the word to getValues().
+                </p>
+                <h5><code>displayString()</code></h5>
+                <p>
+                    This function takes our reversed string as a parameter and outputs it to the HTML page. Our first line of code here grabs our 'results' ID from the HTML and sets it equal to the revString. In the next line we use classList.remove to take the invisible class off our alert, making it visible and presenting our revString on the screen.
+                </p>
             </div>
         </div>
 
